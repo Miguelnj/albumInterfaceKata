@@ -36,13 +36,13 @@ public class DialogoAlbum extends JFrame {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BibliotecaGUI b =
+                /**BibliotecaGUI b =
                 Biblioteca miBiblioteca = b.getMiBiblioteca();
-                miBiblioteca.añadeÁlbum(album);
+                miBiblioteca.añadeÁlbum(album);**/
                 setVisible(false);
                 dispose();
                 setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                b.refreshBibliotecaGUIArea();
+                //b.refreshBibliotecaGUIArea();
             }
         });
         cancelar.addActionListener(new ActionListener() {
