@@ -41,19 +41,14 @@ public class DialogoCancion extends JFrame{
 
             DialogoAlbum d = CreadorAlbum.getDialogoAlbum();
             Album album = d.getAlbum();
-            if(Integer.parseInt(duracion.getText()) == 0){
-                album.añadeCanción(new Cancion(titulo.getText(),interprete.getText()
-                        ,Integer.parseInt(duracion.getText())));
-            }else{
+            if(duracion.getText().isEmpty()){
                 album.añadeCanción(new Cancion(titulo.getText(),interprete.getText()
                         ,0));
+            }else{
+                album.añadeCanción(new Cancion(titulo.getText(),interprete.getText()
+                        ,Integer.parseInt(duracion.getText())));
             }
-            addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    d.refreshTextArea();
-                }
-            });
+            d.refreshTextArea();
         });
         cancelar.addActionListener(e -> setVisible(false));
         duracion = new JTextField();

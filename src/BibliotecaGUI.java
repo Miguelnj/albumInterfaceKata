@@ -5,10 +5,9 @@ import java.awt.event.*;
 public class BibliotecaGUI extends JFrame {
     private JTextArea lista;
     private JButton otro;
-    private static Biblioteca miBiblioteca;
+    private Biblioteca miBiblioteca;
 
     private void initBiblioteca(){
-
         miBiblioteca = new Biblioteca();
         Cancion canción1 = new Cancion("song1","i1",90);
         Cancion canción2 = new Cancion("song2","i1",90);
@@ -61,8 +60,16 @@ public class BibliotecaGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             new CreadorAlbum(BibliotecaGUI.this);
-            lista.setText(miBiblioteca.toString());
         }
+    }
+    public void refreshBibliotecaGUIArea(){
+        lista.setText(miBiblioteca.toString());
+    }
+    public BibliotecaGUI bibliotecaGUI(){
+        return BibliotecaGUI.this;
+    }
+    public Biblioteca getMiBiblioteca(){
+        return miBiblioteca;
     }
 
     public static void main(String[] args){
