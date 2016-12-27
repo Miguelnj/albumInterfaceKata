@@ -3,9 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class BibliotecaGUI extends JFrame {
-    private JTextArea lista;
+    private static JTextArea lista;
     private JButton otro;
-    private Biblioteca miBiblioteca;
+    private static Biblioteca miBiblioteca;
 
     private void initBiblioteca(){
         miBiblioteca = new Biblioteca();
@@ -62,13 +62,10 @@ public class BibliotecaGUI extends JFrame {
             new CreadorAlbum(BibliotecaGUI.this);
         }
     }
-    public void refreshBibliotecaGUIArea(){
+    public static void refreshBibliotecaGUIArea(){
         lista.setText(miBiblioteca.toString());
     }
-    public BibliotecaGUI bibliotecaGUI(){
-        return BibliotecaGUI.this;
-    }
-    public Biblioteca getMiBiblioteca(){
+    public static Biblioteca getMiBiblioteca(){
         return miBiblioteca;
     }
 
