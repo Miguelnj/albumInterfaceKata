@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class BibliotecaGUI extends JFrame {
-    private static JTextArea lista;
+    private JTextArea lista;
     private JButton otro;
     private static Biblioteca miBiblioteca;
 
@@ -59,14 +59,18 @@ public class BibliotecaGUI extends JFrame {
     class EscuchaOtro implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new CreadorAlbum(BibliotecaGUI.this);
+            String name = JOptionPane.showInputDialog("Introduce the name of your new album");
+            DialogoAlbum d;
+            if(name.isEmpty()){
+                d = new DialogoAlbum("Unnamed",BibliotecaGUI.this,true);
+            }else{
+                d = new DialogoAlbum(name,BibliotecaGUI.this,true);
+            }
+            try{
+                miBiblioteca.añadeÁlbum(d.getAlbum());
+                lista.setText(miBiblioteca.toString());
+            }catch(NullPointerException e1){}
         }
-    }
-    public static void refreshBibliotecaGUIArea(){
-        lista.setText(miBiblioteca.toString());
-    }
-    public static Biblioteca getMiBiblioteca(){
-        return miBiblioteca;
     }
 
     public static void main(String[] args){

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -7,10 +6,11 @@ import java.awt.event.*;
  * Created by Miguel on 09/12/2016.
  */
 
-public class DialogoCancion extends JFrame{
+public class DialogoCancion extends JDialog{
     private JTextField titulo,interprete,duracion;
-    public DialogoCancion(JFrame frame){
-        super("Dialogo Canción");
+    private Cancion songToAdd;
+    public DialogoCancion(JDialog j, Boolean b){
+        super(j,b);
         setLayout(new BorderLayout());
 
         JPanel northPanel = createNorthPanel();
@@ -21,10 +21,10 @@ public class DialogoCancion extends JFrame{
         add(middlePanel,BorderLayout.CENTER);
         add(southPanel,BorderLayout.SOUTH);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
         setVisible(true);
-        setLocationRelativeTo(frame);
+        setLocationRelativeTo(null);
     }
 
     private JPanel createSouthPanel() {
@@ -34,23 +34,24 @@ public class DialogoCancion extends JFrame{
         JButton cancelar = new JButton("Cancelar");
         secondPanel.add(aceptar);
         secondPanel.add(cancelar);
+
         aceptar.addActionListener(e -> {
             setVisible(false);
             dispose();
-            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-            DialogoAlbum d = CreadorAlbum.getDialogoAlbum();
-            Album album = d.getAlbum();
             if(duracion.getText().isEmpty()){
-                album.añadeCanción(new Cancion(titulo.getText(),interprete.getText()
-                        ,0));
+                songToAdd = new Cancion(titulo.getText(),interprete.getText()
+                        ,0);
             }else{
-                album.añadeCanción(new Cancion(titulo.getText(),interprete.getText()
-                        ,Integer.parseInt(duracion.getText())));
+                songToAdd = new Cancion(titulo.getText(),interprete.getText()
+                        ,Integer.parseInt(duracion.getText()));
             }
-            d.refreshTextArea();
         });
-        cancelar.addActionListener(e -> setVisible(false));
+        cancelar.addActionListener(e -> {
+            setVisible(false);
+            songToAdd = null;
+        });
+
         duracion = new JTextField();
         duracion.addKeyListener(new KeyAdapter()
         {
@@ -59,7 +60,7 @@ public class DialogoCancion extends JFrame{
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if(caracter < '0' || caracter > '9' && caracter != '\b'){
+                if(caracter < '0' || caracter > '9'){
                     e.consume();  // ignorar el evento de teclado
                 }
             }
@@ -84,5 +85,9 @@ public class DialogoCancion extends JFrame{
         panel.add(new JLabel("Título"),BorderLayout.WEST);
         panel.add(titulo,BorderLayout.CENTER);
         return panel;
+    }
+
+    public Cancion getSong() {
+        return songToAdd;
     }
 }
