@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class BibliotecaGUI extends JFrame {
     private JTextArea lista;
     private JButton otro;
-    private static Biblioteca miBiblioteca;
+    private Biblioteca miBiblioteca;
 
     private void initBiblioteca(){
         miBiblioteca = new Biblioteca();
@@ -56,20 +56,27 @@ public class BibliotecaGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    /**
+     * Creamos el ActionListener del botón "otro" cuya función es comenzar la rutina de
+     * crear un album y sus derivados.
+     */
     class EscuchaOtro implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = JOptionPane.showInputDialog("Introduce the name of your new album");
-            DialogoAlbum d;
-            if(name.isEmpty()){
-                d = new DialogoAlbum("Unnamed",BibliotecaGUI.this,true);
-            }else{
-                d = new DialogoAlbum(name,BibliotecaGUI.this,true);
-            }
+            DialogoAlbum d = null;
             try{
-                miBiblioteca.añadeÁlbum(d.getAlbum());
-                lista.setText(miBiblioteca.toString());
-            }catch(NullPointerException e1){}
+                if(name.isEmpty()){
+                    d = new DialogoAlbum("Unnamed",BibliotecaGUI.this,true);
+                }else{
+                    d = new DialogoAlbum(name,BibliotecaGUI.this,true);
+                }
+                if(d.getAlbum() != null){
+                    miBiblioteca.añadeÁlbum(d.getAlbum());
+                    lista.setText(miBiblioteca.toString());
+                }
+            }catch(NullPointerException ignored){}
         }
     }
 

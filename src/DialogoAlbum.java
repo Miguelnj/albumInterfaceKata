@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Miguel on 09/12/2016.
@@ -9,6 +7,12 @@ import java.awt.event.ActionListener;
 public class DialogoAlbum extends JDialog {
     private JTextArea albumField;
     private Album album;
+
+    /**
+     * @param name nombre que tendrá nuestro album
+     * @param parent le pasamos el frame padre del cual deriva DialogoAlbum
+     * @param b un Booleano que indicará la condición de modal.
+     */
     public DialogoAlbum(String name,JFrame parent,Boolean b){
         super(parent,b);
         album = new Album(name);
@@ -27,6 +31,10 @@ public class DialogoAlbum extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * Creamos el panel que será situado al sur.
+     * @return panel creado
+     */
     private JPanel createSouthPanel(){
         JButton addSong = new JButton("Añadir Canción");
         JButton aceptar = new JButton("Aceptar");
@@ -40,12 +48,12 @@ public class DialogoAlbum extends JDialog {
         cancelar.addActionListener(e -> {
             setVisible(false);
             dispose();
+            album = null;
         });
 
         addSong.addActionListener(e -> {
             DialogoCancion d = new DialogoCancion(DialogoAlbum.this,true);
-            Cancion songToAdd = d.getSong();
-            if(songToAdd != null){
+            if(d.getSong() != null){
                 album.añadeCanción(d.getSong());
                 albumField.setText(album.toString());
             }
@@ -57,6 +65,10 @@ public class DialogoAlbum extends JDialog {
         return panel;
     }
 
+    /**
+     * Getter creado para que BibliotecaGUI pueda acceder al album proporcionado
+     * @return album
+     */
     public Album getAlbum() {
         return album;
     }

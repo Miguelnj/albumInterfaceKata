@@ -9,6 +9,12 @@ import java.awt.event.*;
 public class DialogoCancion extends JDialog{
     private JTextField titulo,interprete,duracion;
     private Cancion songToAdd;
+
+    /**
+     * Constructor del Dialogo Cancion
+     * @param j recibe el JDialog de DialogoAlbum
+     * @param b Recibe un booleano para establecer la modalidad
+     */
     public DialogoCancion(JDialog j, Boolean b){
         super(j,b);
         setLayout(new BorderLayout());
@@ -27,6 +33,10 @@ public class DialogoCancion extends JDialog{
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Creamos el panel sur
+     * @return retornamos el panel sur creado
+     */
     private JPanel createSouthPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel secondPanel = new JPanel(new FlowLayout());
@@ -51,7 +61,9 @@ public class DialogoCancion extends JDialog{
             setVisible(false);
             songToAdd = null;
         });
-
+        /*
+         * Establecemos una máscara para la duración , no se pueden introducir mas que numeros
+         */
         duracion = new JTextField();
         duracion.addKeyListener(new KeyAdapter()
         {
@@ -71,6 +83,10 @@ public class DialogoCancion extends JDialog{
         return panel;
     }
 
+    /**
+     * Creamos el panel del centro
+     * @return retornamos el panel creado
+     */
     private JPanel createmiddlePanel() {
         JPanel panel = new JPanel(new BorderLayout());
         interprete = new JTextField();
@@ -79,6 +95,10 @@ public class DialogoCancion extends JDialog{
         return panel;
     }
 
+    /**
+     * Creamos el panel norte
+     * @return retornamos el panel norte creado
+     */
     private JPanel createNorthPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         titulo = new JTextField();
@@ -87,6 +107,10 @@ public class DialogoCancion extends JDialog{
         return panel;
     }
 
+    /**
+     * Getter para acceder desde DialogoAlbum a la cancion proporcionada por esta clase
+     * @return
+     */
     public Cancion getSong() {
         return songToAdd;
     }

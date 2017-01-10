@@ -92,7 +92,7 @@ public class Biblioteca {
     public String toString(){
         String res = "";
         for (Album album : listaAlbumes) {
-            res += album.toString() + "\n";
+             res += album.toString() + "\n";
         }
         return res;
     }
